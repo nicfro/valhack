@@ -28,10 +28,8 @@ for index, key in enumerate(data.keys()):
 
         tags = np.array(cvision_info['description']['tags'])
         if len(tags) > 0:
-            tags = tags.transpose()
-            pca.fit(tags)
-            transformed = pca.transform(tags)
-            [cur_list.append(value[0]) for value in transformed]
+            tags = np.mean(tags, axis=0)
+            [cur_list.append(value) for value in tags]
         else:
             [cur_list.append(0) for _ in range(200)]
         emotions = []
@@ -39,10 +37,8 @@ for index, key in enumerate(data.keys()):
             emotions.append(list(face_info[0]['faceAttributes']['emotion'].values()))
 
         if len(emotions) > 0:
-            emotions = np.array(emotions).transpose()
-            pca.fit(emotions)
-            transformed = pca.transform(emotions)
-            [cur_list.append(value[0]) for value in transformed]
+            emotions = np.mean(emotions, axis=0)
+            [cur_list.append(value) for value in emotions]
         else:
             [cur_list.append(0) for _ in range(8)]
 
