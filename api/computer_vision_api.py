@@ -28,13 +28,14 @@ class ComputerVisionApi(BaseApi):
         response = s.send(prepped)
 
         if response.status_code == 200:
-            information = json.loads(response.text)
-            print(json.dumps(information, indent=4, sort_keys=True))
+            return response.text
+            # information = json.loads(response.text)
+            # print(json.dumps(information, indent=4, sort_keys=True))
         else:
             print("Error")
             print(response)
             print(response.text)
 
 # cvision = ComputerVisionApi()
-
-# cvision.run_api("https://c-lj.gnst.jp/public/article/detail/a/00/00/a0000718/img/basic/a0000718_main.jpg")
+#
+# cvision.run_api("https://scontent-arn2-1.cdninstagram.com/vp/82645f59c0f18533752415fd890ffde5/5B693CC5/t51.2885-15/e35/30603433_1859127941046611_7990933310161289216_n.jpg")
