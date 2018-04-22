@@ -3,6 +3,16 @@ from collections import Counter
 import pickle
 import numpy as np
 from operator import itemgetter
+import argparse
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument('-u',
+                       '--user',
+                       default=0,
+                       help='Userid')
+args = argparser.parse_args()
+
+userid = int(args.user)
 
 data = np.array(pickle.load(open("data/formatted_data2.p", "rb")))
 
@@ -10,7 +20,7 @@ result = squareform(pdist(data[:,1:], 'euclidean'))
 
 np.fill_diagonal(result, 9999)
 
-closest = np.argsort(result[77])[:5]
+closest = np.argsort(result[userid])[:5]
 
 aaa = data[closest]
 
@@ -49,7 +59,7 @@ for user in data[closest]:
 most_liked_posts = sorted(most_liked_posts, key=itemgetter(2), reverse=True)
 
 for i in range(len(most_liked_posts[0:10])):
-    print("Photo {}:".format(most_liked_posts[i][3]))
+    print("Photo: {}".format(most_liked_posts[i][3]))
 
 print("\nLocations ranked from closest user:")
 [print(ll) for ll in user_location]
