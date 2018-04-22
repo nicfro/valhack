@@ -17,7 +17,7 @@ class Analyze:
         return face_info, cvision_info
 
     def main(self):
-        data = pickle.load(open("data/userStore2.p", "rb"))
+        data = pickle.load(open("data/ourInstagram.p", "rb"))
         counter = 0
         for key in data.keys():
             counter += 1
@@ -31,7 +31,7 @@ class Analyze:
                 info.append(cvision_info)
                 time.sleep(3)
 
-        pickle.dump(data, open("data/userStoreOut2.p", "wb"))
+        pickle.dump(data, open("data/ourInstagram2.p", "wb"))
 
 
 ana = Analyze()

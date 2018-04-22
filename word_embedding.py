@@ -17,7 +17,7 @@ class WordEmbed:
             return None
 
     def main(self):
-        data = pickle.load(open("data/userStoreOut2.p", "rb"))
+        data = pickle.load(open("data/ourInstagram2.p", "rb"))
 
         for key in data.keys():
             info_list = data[key]
@@ -67,6 +67,6 @@ class WordEmbed:
                 info.append(age)
                 info.append(gender)
 
-        pickle.dump(data, open("data/userStoreOutWordEmbed2.p", "wb"))
+        pickle.dump(data, open("data/instagramOutWordEmbed2.p", "wb"))
 
 WordEmbed().main()
