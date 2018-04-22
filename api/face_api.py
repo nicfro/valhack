@@ -28,8 +28,9 @@ class FaceApi(BaseApi):
         response = s.send(prepped)
 
         if response.status_code == 200:
-            information = json.loads(response.text)
-            print(json.dumps(information, indent=4, sort_keys=True))
+            # information = json.loads(response.text)
+            return response.text
+            # print(json.dumps(information, indent=4, sort_keys=True))
         else:
             print("Error")
             print(response)
