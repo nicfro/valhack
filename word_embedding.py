@@ -17,13 +17,31 @@ class WordEmbed:
             return None
 
     def main(self):
-        data = pickle.load(open("data/userStoreOut.p", "rb"))
+        data = pickle.load(open("data/userStoreOut2.p", "rb"))
 
         for key in data.keys():
             info_list = data[key]
 
             ages = []
             genders = []
+            age = -1
+            gender = 0
+            for info in info_list:
+                face_info = json.loads(info[4])
+
+                if len(face_info) > 0:
+                    for face in face_info:
+                        ages.append(face['faceAttributes']['age'])
+                        if face['faceAttributes']['gender'] == 'female':
+                            genders.append(1)
+                        else:
+                            genders.append(0)
+
+                if len(ages) > 0:
+                    age = stats.mode(ages)[0][0]
+                if len(genders) > 0:
+                    gender = stats.mode(genders)[0][0]
+
             for info in info_list:
                 face_info = json.loads(info[4])
                 cvision_info = json.loads(info[5])
@@ -46,11 +64,9 @@ class WordEmbed:
 
                 info[4] = json.dumps(face_info)
                 info[5] = json.dumps(cvision_info)
-                if len(ages) > 0:
-                    info.append(stats.mode(ages)[0][0])
-                if len(genders) > 0:
-                    info.append(stats.mode(genders)[0][0])
+                info.append(age)
+                info.append(gender)
 
-        pickle.dump(data, open("data/userStoreOutWordEmbed.p", "wb"))
+        pickle.dump(data, open("data/userStoreOutWordEmbed2.p", "wb"))
 
 WordEmbed().main()

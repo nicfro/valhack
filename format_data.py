@@ -3,21 +3,22 @@ import json
 from sklearn.decomposition import PCA
 import numpy as np
 
-userid = list(range(1, 10))
+userid = list(range(1, 200))
 pca = PCA(n_components=1)
 
-data = pickle.load(open("data/userStoreOutWordEmbed.p", "rb"))
+data = pickle.load(open("data/userStoreOutWordEmbed2.p", "rb"))
 
 formatted_data = []
 for index, key in enumerate(data.keys()):
     info_list = data[key]
-
+    counter = 0
     for info in info_list:
         cur_list = []
         face_info = json.loads(info[4])
         cvision_info = json.loads(info[5])
 
         cur_list.append(userid[index])
+        cur_list.append(counter)
         if len(info) >= 7:
             cur_list.append(info[6])
             cur_list.append(info[7])
@@ -46,5 +47,6 @@ for index, key in enumerate(data.keys()):
             [cur_list.append(0) for _ in range(8)]
 
         formatted_data.append(cur_list)
+        counter += 1
 
-pickle.dump(formatted_data, open("data/formatted_data.p", "wb"))
+pickle.dump(formatted_data, open("data/formatted_data2.p", "wb"))
